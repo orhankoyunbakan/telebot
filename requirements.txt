@@ -1,0 +1,2 @@
+python-telegram-bot==20.0  # Telegram bot kütüphanesi
+nest_asyncio==1.5.4         # asyncio kütüphanesi uyumsuzluğunu giderir
