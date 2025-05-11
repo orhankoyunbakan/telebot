@@ -9,7 +9,7 @@ import asyncio
 TOKEN = '8137494195:AAF64rgBuINneNHdHWUa0jC7hu3WTCn8tag'
 
 # Kanalın ID'si, kanalınıza ekleyin (örnek olarak)
-CHANNEL_ID = '@boutiqueport'
+CHANNEL_IDS = ['@boutiqueport', '@boutiqueportbags', '@boutiqueporttrainers''@boutiqueportwatches', '@boutiqueportreviews']
 
 # Üye sayısını takip edeceğiz
 max_members = 1000
@@ -33,10 +33,11 @@ async def new_member(update: Update, context):
     if current_members > max_members:
         # Yeni katılanı at
         for member in update.message.new_chat_members:
-            logging.info(f"{member.full_name} 500 üye sınırını geçti ve atıldı.")  # Logla
-            await context.bot.kick_chat_member(CHANNEL_ID, member.id)
-            await context.bot.send_message(CHANNEL_ID, f"Üye {member.full_name} 500 sınırını geçtiği için atıldı.")
-
+            for channel in CHANNEL_IDS:
+                logging.info(f"{member.full_name} 500 üye sınırını geçti ve {channel} kanalından atıldı.")  # Logla
+                await context.bot.kick_chat_member(channel, member.id)
+                await context.bot.send_message(channel, f"Üye {member.full_name} 500 sınırını geçtiği için atıldı.")
+    
     # Geriye dönüp kanalı kontrol et
     logging.info(f"Güncel üye sayısı: {current_members}")  # Logla
 
